@@ -46,28 +46,28 @@ public class TurretEditor : Editor
             {
                 // Traverse
                 Handles.color = new Color(1.0f, 0.5f, 0.5f, 0.1f);
-                Handles.DrawSolidArc(turret.turretBarrels.position, turret.turretBarrels.up, turret.turretBarrels.forward, turret.maxTraverse, ArcSize);
-                Handles.DrawSolidArc(turret.turretBarrels.position, turret.turretBarrels.up, turret.turretBarrels.forward, -turret.maxTraverse, ArcSize);
+                Handles.DrawSolidArc(turret.turretBarrels.position, turret.turretBarrels.up, turret.turretBarrels.forward, turret.traverse, ArcSize);
+                Handles.DrawSolidArc(turret.turretBarrels.position, turret.turretBarrels.up, turret.turretBarrels.forward, -turret.traverse, ArcSize);
 
                 // Elevation
                 Handles.color = new Color(0.5f, 1.0f, 0.5f, 0.1f);
-                Handles.DrawSolidArc(turret.turretBarrels.position, turret.turretBarrels.right, turret.turretBarrels.forward, -turret.maxElevation, ArcSize);
+                Handles.DrawSolidArc(turret.turretBarrels.position, turret.turretBarrels.right, turret.turretBarrels.forward, -turret.elevation, ArcSize);
 
                 // Depression
                 Handles.color = new Color(0.5f, 0.5f, 1.0f, 0.1f);
-                Handles.DrawSolidArc(turret.turretBarrels.position, turret.turretBarrels.right, turret.turretBarrels.forward, turret.maxDepression, ArcSize);
+                Handles.DrawSolidArc(turret.turretBarrels.position, turret.turretBarrels.right, turret.turretBarrels.forward, turret.depression, ArcSize);
             }
             else
             {
                 Handles.color = new Color(1.0f, 0.5f, 0.5f, 0.1f);
-                Handles.DrawSolidArc(transform.position, transform.up, transform.forward, turret.maxTraverse, ArcSize);
-                Handles.DrawSolidArc(transform.position, transform.up, transform.forward, -turret.maxTraverse, ArcSize);
+                Handles.DrawSolidArc(transform.position, transform.up, transform.forward, turret.traverse, ArcSize);
+                Handles.DrawSolidArc(transform.position, transform.up, transform.forward, -turret.traverse, ArcSize);
 
                 Handles.color = new Color(0.5f, 1.0f, 0.5f, 0.1f);
-                Handles.DrawSolidArc(transform.position, transform.right, transform.forward, -turret.maxElevation, ArcSize);
+                Handles.DrawSolidArc(transform.position, transform.right, transform.forward, -turret.elevation, ArcSize);
 
                 Handles.color = new Color(0.5f, 0.5f, 1.0f, 0.1f);
-                Handles.DrawSolidArc(transform.position, transform.right, transform.forward, turret.maxDepression, ArcSize);
+                Handles.DrawSolidArc(transform.position, transform.right, transform.forward, turret.depression, ArcSize);
             }
         }
     }
