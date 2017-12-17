@@ -156,7 +156,7 @@ namespace Turrets
 				localTargetPos.y = 0.0f;
 
 				// Clamp target rotation by creating a limited rotation to the target.
-				Vector3 clampedLocalVec2Target = Vector3.RotateTowards(Vector3.forward, localTargetPos, Mathf.Deg2Rad * traverse, 0.0f);
+				Vector3 clampedLocalVec2Target = Vector3.RotateTowards(Vector3.forward, localTargetPos, Mathf.Deg2Rad * traverse, float.MaxValue);
 
 				// Create new rotation towards the target in local space.
 				Quaternion rotationGoal = Quaternion.LookRotation(clampedLocalVec2Target);
@@ -206,9 +206,9 @@ namespace Turrets
 				// Use different clamps depending if the target is above or below the turret.
 				Vector3 clampedLocalVec2Target = localTargetPos;
 				if (localTargetPos.y >= 0.0f)
-					clampedLocalVec2Target = Vector3.RotateTowards(Vector3.forward, localTargetPos, Mathf.Deg2Rad * elevation, 0.0f);
+					clampedLocalVec2Target = Vector3.RotateTowards(Vector3.forward, localTargetPos, Mathf.Deg2Rad * elevation, float.MaxValue);
 				else
-					clampedLocalVec2Target = Vector3.RotateTowards(Vector3.forward, localTargetPos, Mathf.Deg2Rad * depression, 0.0f);
+					clampedLocalVec2Target = Vector3.RotateTowards(Vector3.forward, localTargetPos, Mathf.Deg2Rad * depression, float.MaxValue);
 
 				// Create new rotation towards the target in local space.
 				Quaternion rotationGoal = Quaternion.LookRotation(clampedLocalVec2Target);
