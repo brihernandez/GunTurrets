@@ -12,7 +12,9 @@ namespace Turrets
 
 		[Header("Rotation Limits")]
 		public float turnRate = 30.0f;
-		public float traverse = 60.0f;
+		public bool limitTraverse = false;
+		public float leftTraverse = 60.0f;
+		public float rightTraverse = 60.0f;
 		public float elevation = 60.0f;
 		public float depression = 5.0f;
 
@@ -45,12 +47,6 @@ namespace Turrets
 			{
 				RotateTurret();
 			}
-		}
-
-		private void RotateTurret()
-		{
-			RotateBaseNewClamp();
-			RotateBarrelsNewClamp();
 		}
 
 		/// <summary>
@@ -99,7 +95,13 @@ namespace Turrets
 				Debug.LogWarning(name + ": Turret cannot clear transforms while game is playing.");
 			}
 		}
-		
+
+		private void RotateTurret()
+		{
+			RotateBaseNewClamp();
+			RotateBarrelsNewClamp();
+		}
+
 		private void RotateBaseNewClamp()
 		{
 			if (turretBase != null)
@@ -109,7 +111,15 @@ namespace Turrets
 				localTargetPos.y = 0.0f;
 
 				// Clamp target rotation by creating a limited rotation to the target.
-				Vector3 clampedLocalVec2Target = Vector3.RotateTowards(Vector3.forward, localTargetPos, Mathf.Deg2Rad * traverse, float.MaxValue);
+				// Use different clamps depending if the target is to the left or right of the turret.
+				Vector3 clampedLocalVec2Target = localTargetPos;
+				if (limitTraverse)
+				{
+					if (localTargetPos.x >= 0.0f)
+						clampedLocalVec2Target = Vector3.RotateTowards(Vector3.forward, localTargetPos, Mathf.Deg2Rad * rightTraverse, float.MaxValue);
+					else
+						clampedLocalVec2Target = Vector3.RotateTowards(Vector3.forward, localTargetPos, Mathf.Deg2Rad * leftTraverse, float.MaxValue);
+				}
 
 				// Create new rotation towards the target in local space.
 				Quaternion rotationGoal = Quaternion.LookRotation(clampedLocalVec2Target);
