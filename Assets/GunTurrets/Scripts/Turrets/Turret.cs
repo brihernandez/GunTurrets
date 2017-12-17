@@ -19,7 +19,9 @@ namespace Turrets
 		private bool aiming = false;
 		private Vector3 aimPoint;
 
-		const int kBenchmarkIter = 500;
+		const int kBenchmarkIter = 1;
+
+		public bool useLegacy = false;
 
 		// Use this for initialization
 		private void Start()
@@ -35,7 +37,10 @@ namespace Turrets
 			{
 				for (int i = 0; i < kBenchmarkIter; ++i)
 				{
-					RotateTurret();
+					if (useLegacy)
+						RotateTurretLegacy();
+					else
+						RotateTurret();
 				}
 			}
 
@@ -50,12 +55,21 @@ namespace Turrets
 			{
 				for (int i = 0; i < kBenchmarkIter; ++i)
 				{
-					RotateTurret();
+					if (useLegacy)
+						RotateTurretLegacy();
+					else
+						RotateTurret();
 				}
 			}
 		}
 
 		private void RotateTurret()
+		{
+			RotateBaseNewClamp();
+			RotateBarrelsNewClamp();
+		}
+
+		private void RotateTurretLegacy()
 		{
 			RotateBaseLegacy();
 			RotateBarrelsLegacy();
@@ -108,14 +122,6 @@ namespace Turrets
 			}
 		}
 
-		private void RotateBaseAngle()
-		{
-			if (turretBase != null)
-			{
-				//Vector3.SignedAngle();
-			}
-		}
-
 		private void RotateBaseLegacy()
 		{
 			if (turretBase != null)
@@ -141,6 +147,25 @@ namespace Turrets
 			}
 		}
 
+		private void RotateBaseNewClamp()
+		{
+			if (turretBase != null)
+			{
+				// Note, the local conversion has to come from the parent.
+				Vector3 localTargetPos = transform.InverseTransformPoint(aimPoint);
+				localTargetPos.y = 0.0f;
+
+				// Clamp target rotation by creating a limited rotation to the target.
+				Vector3 clampedLocalVec2Target = Vector3.RotateTowards(Vector3.forward, localTargetPos, Mathf.Deg2Rad * traverse, 0.0f);
+
+				// Create new rotation towards the target in local space.
+				Quaternion rotationGoal = Quaternion.LookRotation(clampedLocalVec2Target);
+				Quaternion newRotation = Quaternion.RotateTowards(turretBase.localRotation, rotationGoal, turnRate * Time.deltaTime);
+
+				// Set the new rotation of the base.
+				turretBase.localRotation = newRotation;
+			}
+		}
 
 		private void RotateBarrelsLegacy()
 		{
@@ -166,6 +191,31 @@ namespace Turrets
 				temp.z = 0.0f;
 
 				turretBarrels.localEulerAngles = temp;
+			}
+		}
+
+		private void RotateBarrelsNewClamp()
+		{
+			if (turretBase != null && turretBarrels != null)
+			{
+				// Note, the local conversion has to come from the parent.
+				Vector3 localTargetPos = turretBase.InverseTransformPoint(aimPoint);
+				localTargetPos.x = 0.0f;
+
+				// Clamp target rotation by creating a limited rotation to the target.
+				// Use different clamps depending if the target is above or below the turret.
+				Vector3 clampedLocalVec2Target = localTargetPos;
+				if (localTargetPos.y >= 0.0f)
+					clampedLocalVec2Target = Vector3.RotateTowards(Vector3.forward, localTargetPos, Mathf.Deg2Rad * elevation, 0.0f);
+				else
+					clampedLocalVec2Target = Vector3.RotateTowards(Vector3.forward, localTargetPos, Mathf.Deg2Rad * depression, 0.0f);
+
+				// Create new rotation towards the target in local space.
+				Quaternion rotationGoal = Quaternion.LookRotation(clampedLocalVec2Target);
+				Quaternion newRotation = Quaternion.RotateTowards(turretBarrels.localRotation, rotationGoal, 2.0f * turnRate * Time.deltaTime);
+
+				// Set the new rotation of the barrels.
+				turretBarrels.localRotation = newRotation;
 			}
 		}
 

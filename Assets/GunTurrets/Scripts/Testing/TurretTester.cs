@@ -3,15 +3,16 @@ using Turrets;
 
 public class TurretTester : MonoBehaviour
 {
-	public Turret turret;
+	public Turret[] turret;
 	public Vector3 targetPos;
 
 	private void Update()
 	{
-		if (turret != null)
+		if (turret.Length > 0)
 		{
 			targetPos = transform.TransformPoint(Vector3.forward * 200.0f);
-			turret.SetAimpoint(targetPos);
+			foreach (Turret tur in turret)
+				tur.SetAimpoint(targetPos);
 		}
 	}
 
@@ -19,7 +20,5 @@ public class TurretTester : MonoBehaviour
 	{
 		Gizmos.DrawWireSphere(targetPos, 1.0f);
 	}
-
-
 
 }
