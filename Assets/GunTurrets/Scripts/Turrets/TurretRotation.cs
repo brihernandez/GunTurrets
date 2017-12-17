@@ -27,16 +27,25 @@ namespace Turrets
 		public float depression = 5.0f;
 
 		private bool aiming = false;
+		private bool atRest = false;
 		private Vector3 aimPoint;
 
-		// Use this for initialization
+		/// <summary>
+		/// Turret is no longer aiming at anything, returns to resting position, and stops rotating.
+		/// </summary>
+		public bool Idle { get { return !aiming; } }
+		
+		/// <summary>
+		/// Turret is idle and in a resting position.
+		/// </summary>
+		public bool AtRest { get { return atRest; } }
+
 		private void Start()
 		{
 			if (aiming == false)
 				aimPoint = transform.TransformPoint(Vector3.forward * 100.0f);
 		}
 
-		// Update is called once per frame
 		private void Update()
 		{
 			if (!runRotationsInFixed)
@@ -58,7 +67,7 @@ namespace Turrets
 		}
 
 		/// <summary>
-		/// Gives the turret a position to aim at.
+		/// Give the turret a position to aim at. If not idle, it will rotate to aim at this point.
 		/// </summary>
 		public void SetAimpoint(Vector3 position)
 		{
@@ -67,14 +76,20 @@ namespace Turrets
 		}
 
 		/// <summary>
-		/// Turret returns to rest position.
+		/// When idle, turret returns to resting position, will not track an aimpoint, and rotations stop updating.
 		/// </summary>
-		public void SetIdle()
+		public void SetIdle(bool idle)
 		{
-			aiming = false;
-			aimPoint = transform.TransformPoint(Vector3.forward * 1000.0f);
+			aiming = !idle;
+
+			if (aiming)
+				atRest = false;
 		}
 
+		/// <summary>
+		/// Attempts to automatically assign the turretBase and turretBarrels transforms. Will search for a transform
+		/// named "Base" for turretBase and a transform named "Barrels" for the turretBarrels.
+		/// </summary>
 		public void AutoPopulateBaseAndBarrels()
 		{
 			// Don't allow this while ingame.
@@ -90,6 +105,9 @@ namespace Turrets
 			}
 		}
 
+		/// <summary>
+		/// Sets the turretBase and turretBarrels transforms to null.
+		/// </summary>
 		public void ClearTransforms()
 		{
 			// Don't allow this while ingame.
@@ -106,11 +124,18 @@ namespace Turrets
 
 		private void RotateTurret()
 		{
-			RotateBaseNewClamp();
-			RotateBarrelsNewClamp();
+			if (aiming)
+			{
+				RotateBase();
+				RotateBarrels();
+			}
+			else if (!atRest)
+			{
+				atRest = RotateToIdle();
+			}
 		}
 
-		private void RotateBaseNewClamp()
+		private void RotateBase()
 		{
 			if (turretBase != null)
 			{
@@ -138,7 +163,7 @@ namespace Turrets
 			}
 		}
 		
-		private void RotateBarrelsNewClamp()
+		private void RotateBarrels()
 		{
 			if (turretBase != null && turretBarrels != null)
 			{
@@ -161,6 +186,32 @@ namespace Turrets
 				// Set the new rotation of the barrels.
 				turretBarrels.localRotation = newRotation;
 			}
+		}
+
+		private bool RotateToIdle()
+		{
+			bool baseFinished = false;
+			bool barrelsFinished = false;
+
+			if (turretBase != null)
+			{
+				Quaternion newRotation = Quaternion.RotateTowards(turretBase.localRotation, Quaternion.identity, turnRate * Time.deltaTime);
+				turretBase.localRotation = newRotation;
+
+				if (turretBase.localRotation == Quaternion.identity)
+					baseFinished = true;
+			}
+
+			if (turretBarrels != null)
+			{
+				Quaternion newRotation = Quaternion.RotateTowards(turretBarrels.localRotation, Quaternion.identity, 2.0f * turnRate * Time.deltaTime);
+				turretBarrels.localRotation = newRotation;
+
+				if (turretBarrels.localRotation == Quaternion.identity)
+					barrelsFinished = true;
+			}
+
+			return (baseFinished && barrelsFinished);
 		}
 	}
 }
