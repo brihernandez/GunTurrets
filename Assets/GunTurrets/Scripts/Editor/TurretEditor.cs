@@ -2,7 +2,7 @@
 using UnityEditor;
 using Turrets;
 
-[CustomEditor(typeof(Turret))]
+[CustomEditor(typeof(TurretRotation))]
 public class TurretEditor : Editor
 {
 	private bool showArcs = false;
@@ -11,7 +11,7 @@ public class TurretEditor : Editor
 
 	public override void OnInspectorGUI()
 	{
-		Turret turret = (Turret)target;
+		TurretRotation turret = (TurretRotation)target;
 
 		DrawDefaultInspector();
 
@@ -39,7 +39,7 @@ public class TurretEditor : Editor
 	{
 		if (showArcs)
 		{
-			Turret turret = (Turret)target;
+			TurretRotation turret = (TurretRotation)target;
 			Transform transform = turret.transform;
 
 			if (turret.turretBarrels != null)

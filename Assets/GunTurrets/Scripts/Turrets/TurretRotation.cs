@@ -2,7 +2,7 @@
 
 namespace Turrets
 {
-	public class Turret : MonoBehaviour
+	public class TurretRotation : MonoBehaviour
 	{
 		public bool runRotationsInFixed = false;
 
