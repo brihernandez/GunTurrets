@@ -7,15 +7,23 @@ namespace Turrets
 		public bool runRotationsInFixed = false;
 
 		[Header("Objects")]
+		[Tooltip("Transform used to provide the horizontal rotation of the turret.")]
 		public Transform turretBase;
+		[Tooltip("Transform used to provide the vertical rotation of the barrels. Must be a child of the TurretBase.")]
 		public Transform turretBarrels;
 
 		[Header("Rotation Limits")]
+		[Tooltip("Turn rate of the turret's base and barrels in degrees per second.")]
 		public float turnRate = 30.0f;
+		[Tooltip("When true, turret rotates according to left/right traverse limits. When false, turret can rotate freely.")]
 		public bool limitTraverse = false;
+		[Tooltip("When traverse is limited, how many degrees to the left the turret can turn.")]
 		public float leftTraverse = 60.0f;
+		[Tooltip("When traverse is limited, how many degrees to the right the turret can turn.")]
 		public float rightTraverse = 60.0f;
+		[Tooltip("How far up the barrel(s) can rotate.")]
 		public float elevation = 60.0f;
+		[Tooltip("How far down the barrel(s) can rotate.")]
 		public float depression = 5.0f;
 
 		private bool aiming = false;
@@ -61,7 +69,7 @@ namespace Turrets
 		/// <summary>
 		/// Turret returns to rest position.
 		/// </summary>
-		public void Idle()
+		public void SetIdle()
 		{
 			aiming = false;
 			aimPoint = transform.TransformPoint(Vector3.forward * 1000.0f);
