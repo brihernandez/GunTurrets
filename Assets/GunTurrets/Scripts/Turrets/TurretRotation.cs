@@ -4,6 +4,7 @@ namespace Turrets
 {
 	public class TurretRotation : MonoBehaviour
 	{
+		[Tooltip("Should turret rotate in the FixedUpdate rather than Update?")]
 		public bool runRotationsInFixed = false;
 
 		[Header("Objects")]
@@ -188,6 +189,10 @@ namespace Turrets
 			}
 		}
 
+		/// <summary>
+		/// Rotates the turret to resting position.
+		/// </summary>
+		/// <returns>True when turret has finished rotating to resting positing.</returns>
 		private bool RotateToIdle()
 		{
 			bool baseFinished = false;
