@@ -17,7 +17,7 @@ Included in the project is an archetype prefab that can be used as a basis for a
 
 ## Turret Hierarchy
 
-Turrets must follow a specific hierarchy. 
+Turrets must follow a specific hierarchy. The image below shows an example.
 
 ![screenshot](Screenshots/hierarchy.png)
 
@@ -28,3 +28,23 @@ The **turret base object** (Base) must then be a child of the root object. This 
 Finally, the **barrels object** (Barrels) must be a child of the turret base object. This object handles the elevation of the barrels. If you add a gun or missile launcher to the turret, it's recommended to make the gun a child of this barrel object.
 
 The rest of the objects in the hierarchy screenshot above are for visuals.
+
+If an elevating barrel isn't required for the turret, it will function just fine without it. The turret will continue to rotate horizontally to face whatever aim point it's given, but 
+
+## Helper tools
+
+### Show Arcs
+
+Visualizes the firing arcs of the turret. Note that this only works correctly at edit-time. During runtime the arcs will not be accurate.
+
+- Red: Azimuthal left/right limits. How far to the left/right that the turret can turn.
+- Green: Elevation. How far the turret can raise its barrels.
+- Blue: Depression. How far the turret can lower its barrels.
+
+### Auto-Populate Transforms
+
+This button will automatically fill in the Turret Base and Turret Barrels game objects. It will search for a child of the turret game object with the name "Base" for the base, and a child of that game object with name "Barrels" for the turret barrels.
+
+### Clear Transforms
+
+Simply sets the turret base and barrels to None.
