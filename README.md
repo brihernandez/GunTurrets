@@ -1,5 +1,5 @@
 # Gun Turrets
-Starting point for turrets that can be mounted on arbitrary things. This only includes the rotation of turrets, and none of the weapon system functionality.
+Starting point for turrets that can be mounted on objects that move and can be at any arbitrary rotation. This only project specifically works out the rotation of turrets. You're meant to provide your own weapon systems and to pass aim points to the turret on your own.
 
 Built in **Unity 5.6.4**.
 
