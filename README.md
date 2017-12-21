@@ -35,7 +35,7 @@ Finally, the **barrels object** (Barrels) must be a child of the turret base obj
 
 The rest of the objects in the hierarchy screenshot above are for visuals.
 
-If an elevating barrel isn't required for the turret, it will function just fine without it. The turret will continue to rotate horizontally to face whatever aim point it's given, but 
+If an elevating barrel isn't required for a turret design, the component will still function fine without it. The turret continues to rotate horizontally to face whatever aim point it's given.
 
 ## Helper tools
 
