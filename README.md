@@ -9,6 +9,12 @@ Built in **Unity 5.6.4**.
 
 You can either clone the repository or download the asset package located in the root.
 
+## Usage
+
+To aim the turret, call the function **SetAimpoint**. This function takes a Vector3 position. If the turret is not currently idle, it will turn to aim at this target.
+
+At any time, the turret can be put into (or out of) Idle mode using the **SetIdle** function. When the turret is idle, it will return to its resting position. Note that the aimpoint remains, and if the turret is brought out of idle, it will continue to aim at whatever the last aimpoint was set to.
+
 ## Turret Rotation
 
 The core script of this project. This assumes a turret with a base gameobject/transform for horizontal rotation, and a barrel gameobject/transform for the vertical rotation. This covers the majority of cases for how turrets operate.
