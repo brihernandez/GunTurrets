@@ -63,7 +63,11 @@ This button will automatically fill in the Turret Base and Turret Barrels game o
 
 Simply sets the turret base and barrels to None.
 
-# Changelog
+# Change log
+
+### 1.2 (Dec 22 2017)
+
+- Turret limitations are now ranges.
 
 ### 1.1 (Dec 22 2017)
 
