@@ -4,12 +4,13 @@ using UnityEditor;
 namespace Turrets
 {
    [CustomEditor(typeof(TurretRotation))]
+   [CanEditMultipleObjects]
    public class TurretEditor : Editor
    {
       private const float ArcSize = 10.0f;
 
       private bool showArcs = false;
-      private bool showRays = true;
+      private bool drawRay = false;
 
       public override void OnInspectorGUI()
       {
@@ -22,9 +23,14 @@ namespace Turrets
 
          EditorGUILayout.BeginHorizontal();
 
+         // TODO: Fix drawRay not saving correctly when you Play
          showArcs = GUILayout.Toggle(showArcs, new GUIContent("Show Arcs", "Show the arcs that the turret can aim at.\n\nRed: Left/Right Traverse\nGreen: Elevation\nBlue: Depression"));
-         showRays = GUILayout.Toggle(showRays, new GUIContent("Show Rays", "When game is running in editor, draws a debug ray to show where the turret is aiming."));
-         turret.DrawDebugRay = showRays;
+         drawRay = GUILayout.Toggle(turret.drawDebugRay, new GUIContent("Show Rays", "When game is running in editor, draws a debug ray to show where the turret is aiming."));
+
+         foreach (Object obj in targets)
+         {
+            ((TurretRotation)obj).drawDebugRay = drawRay;
+         }
 
          EditorGUILayout.EndHorizontal();
 
