@@ -27,9 +27,11 @@ namespace Turrets
 		[Tooltip("How far down the barrel(s) can rotate.")]
 		public float depression = 5.0f;
 
+		private Vector3 aimPoint;
+
 		private bool aiming = false;
 		private bool atRest = false;
-		private Vector3 aimPoint;
+		private bool drawDebugRay = false;
 
 		/// <summary>
 		/// Turret is no longer aiming at anything, returns to resting position, and stops rotating.
@@ -40,6 +42,11 @@ namespace Turrets
 		/// Turret is idle and in a resting position.
 		/// </summary>
 		public bool AtRest { get { return atRest; } }
+
+		/// <summary>
+		/// Sets whether or not to draw a ray showing where the turret is aiming.
+		/// </summary>
+		public bool DrawDebugRay { set { drawDebugRay = value; } }
 
 		private void Start()
 		{
@@ -54,9 +61,8 @@ namespace Turrets
 				RotateTurret();
 			}
 
-			// DEBUG
-			if (turretBarrels != null)
-				Debug.DrawRay(turretBarrels.position, turretBarrels.forward * 100.0f);
+			if (drawDebugRay)
+				DrawDebugRays();
 		}
 
 		private void FixedUpdate()
@@ -217,6 +223,14 @@ namespace Turrets
 			}
 
 			return (baseFinished && barrelsFinished);
+		}
+
+		private void DrawDebugRays()
+		{
+			if (turretBarrels != null)
+				Debug.DrawRay(turretBarrels.position, turretBarrels.forward * 100.0f);
+			else if (turretBase != null)
+				Debug.DrawRay(turretBase.position, turretBase.forward * 100.0f);
 		}
 	}
 }
