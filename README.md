@@ -45,11 +45,15 @@ If an elevating barrel isn't required for a turret design, the component will st
 
 ### Show Arcs
 
-Visualizes the firing arcs of the turret. Note that this only works correctly at edit-time. During runtime the arcs will not be accurate.
+Visualizes the firing arcs of the turret. Arcs will not be displayed at runtime.
 
 - Red: Azimuthal left/right limits. How far to the left/right that the turret can turn.
 - Green: Elevation. How far the turret can raise its barrels.
 - Blue: Depression. How far the turret can lower its barrels.
+
+### Show Debug Ray
+
+Draws a 100 meter ray from the barrel's transform in the direction it is pointing. Used to debug turret aiming. If there are no barrels, the ray will be drawn from the turret's rotating base.
 
 ### Auto-Populate Transforms
 
