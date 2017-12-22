@@ -2,14 +2,10 @@
 
 public class FreeCamera : MonoBehaviour
 {
-    float shift = 1f;
-    float lastX, lastY = 0f;
-    float x, y;
-
     public bool useFixedUpdate = false;
 
     public bool invert = true;
-        
+
     public float sensitivity = 20f;
 
     public float speed = 20f;
@@ -18,18 +14,22 @@ public class FreeCamera : MonoBehaviour
 
     public bool visible = true;
 
-    bool useModSpeed = false;
+    private Camera cam;
 
-    Camera cam;
-    float startingFov;
+    private float shift = 1f;
+    private float lastX, lastY = 0f;
+    private float x, y;
+    private float startingFov;
 
-    void Start()
+    private bool useModSpeed = false;
+
+    private void Start()
     {
         cam = GetComponent<Camera>();
         startingFov = cam.fieldOfView;
     }
 
-    void Update()
+    private void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
@@ -65,7 +65,7 @@ public class FreeCamera : MonoBehaviour
             MouseLookMovement();
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         if (useFixedUpdate)
             MouseLookMovement();

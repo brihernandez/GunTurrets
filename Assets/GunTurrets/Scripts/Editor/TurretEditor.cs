@@ -5,9 +5,10 @@ using Turrets;
 [CustomEditor(typeof(TurretRotation))]
 public class TurretEditor : Editor
 {
-	private bool showArcs = false;
+	private const float ArcSize = 10.0f;
 
-	const float ArcSize = 10.0f;
+	private bool showArcs = false;
+	private bool showRays = true;
 
 	public override void OnInspectorGUI()
 	{
@@ -18,16 +19,22 @@ public class TurretEditor : Editor
 		EditorGUILayout.Space();
 		GUILayout.Label("Utilities", EditorStyles.boldLabel);
 
-		showArcs = GUILayout.Toggle(showArcs, "Show Arcs");
+		EditorGUILayout.BeginHorizontal();
+
+		showArcs = GUILayout.Toggle(showArcs, new GUIContent("Show Arcs", "Show the arcs that the turret can aim at.\n\nRed: Left/Right Traverse\nGreen: Elevation\nBlue: Depression"));
+		showRays = GUILayout.Toggle(showRays, new GUIContent("Show Rays", "When game is running in editor, draws a debug ray to show where the turret is aiming."));
+        turret.DrawDebugRay = showRays;
+
+		EditorGUILayout.EndHorizontal();
 
 		EditorGUILayout.BeginHorizontal();
 
-		if (GUILayout.Button("Auto-Populate Transforms"))
+		if (GUILayout.Button(new GUIContent("Auto-Populate Transforms", "Automatically search and populate the \"Turret Base\" and \"Turret Barrels\" object references.\n\nRequires a child GameObject called \"Base\" and for that GameObject to have a child named \"Barrels\".")))
 		{
 			turret.AutoPopulateBaseAndBarrels();
 		}
 
-		if (GUILayout.Button("Clear Transforms"))
+		if (GUILayout.Button(new GUIContent("Clear Transforms", "Sets the \"Turret Base\" and \"Turret Barrels\" references to None.")))
 		{
 			turret.ClearTransforms();
 		}
@@ -37,11 +44,11 @@ public class TurretEditor : Editor
 
 	private void OnSceneGUI()
 	{
+		TurretRotation turret = (TurretRotation)target;
+		Transform transform = turret.transform;
+
 		if (showArcs)
 		{
-			TurretRotation turret = (TurretRotation)target;
-			Transform transform = turret.transform;
-
 			if (turret.turretBarrels != null)
 			{
 				// Traverse
@@ -78,6 +85,4 @@ public class TurretEditor : Editor
 			}
 		}
 	}
-
-
 }
