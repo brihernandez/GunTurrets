@@ -58,3 +58,9 @@ This button will automatically fill in the Turret Base and Turret Barrels game o
 ### Clear Transforms
 
 Simply sets the turret base and barrels to None.
+
+# Changelog
+
+### 1.0 (Dec 22 2017)
+
+- Released
