@@ -7,7 +7,7 @@ Built in **Unity 5.6.4**.
 
 ## Download
 
-You can either clone the repository or download the asset package located in the root.
+You can either clone the repository or **[download the asset package](./GunTurrets.unitypackage)** located in the root.
 
 ## Usage
 
