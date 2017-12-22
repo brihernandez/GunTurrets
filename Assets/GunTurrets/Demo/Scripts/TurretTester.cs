@@ -12,6 +12,12 @@ public class TurretTester : MonoBehaviour
 
 	private void Update()
 	{
+		// Toggle turret idle.
+		if (Input.GetKeyDown(KeyCode.E))
+			turretsIdle = !turretsIdle;
+
+		// When a transform is assigned, pass that to the turret. If not,
+		// just pass in whatever this is looking at.
 		targetPos = transform.TransformPoint(Vector3.forward * 200.0f);
 		foreach (TurretRotation tur in turret)
 		{
