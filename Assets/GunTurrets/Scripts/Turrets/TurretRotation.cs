@@ -19,12 +19,16 @@ namespace Turrets
       [Tooltip("When true, turret rotates according to left/right traverse limits. When false, turret can rotate freely.")]
       public bool limitTraverse = false;
       [Tooltip("When traverse is limited, how many degrees to the left the turret can turn.")]
+      [Range(0.0f, 180.0f)]
       public float leftTraverse = 60.0f;
       [Tooltip("When traverse is limited, how many degrees to the right the turret can turn.")]
+      [Range(0.0f, 180.0f)]
       public float rightTraverse = 60.0f;
       [Tooltip("How far up the barrel(s) can rotate.")]
+      [Range(0.0f, 90.0f)]
       public float elevation = 60.0f;
       [Tooltip("How far down the barrel(s) can rotate.")]
+      [Range(0.0f, 90.0f)]
       public float depression = 5.0f;
 
       [Header("Utilities")]
@@ -144,6 +148,8 @@ namespace Turrets
 
       private void RotateBase()
       {
+         // TODO: Turret needs to rotate the long way around if the aimpoint gets behind
+         // it and traversal limits prevent it from taking the shortest rotation.
          if (turretBase != null)
          {
             // Note, the local conversion has to come from the parent.
