@@ -27,8 +27,11 @@ namespace Turrets
       [Tooltip("How far down the barrel(s) can rotate.")]
       public float depression = 5.0f;
 
-      [HideInInspector]
-      public bool drawDebugRay = true;
+      [Header("Utilities")]
+      [Tooltip("Show the arcs that the turret can aim through.\n\nRed: Left/Right Traverse\nGreen: Elevation\nBlue: Depression")]
+      public bool showArcs = false;
+      [Tooltip("When game is running in editor, draws a debug ray to show where the turret is aiming.")]
+      public bool showDebugRay = true;
 
       private Vector3 aimPoint;
 
@@ -58,7 +61,7 @@ namespace Turrets
             RotateTurret();
          }
 
-         if (drawDebugRay)
+         if (showDebugRay)
             DrawDebugRays();
       }
 
@@ -169,6 +172,9 @@ namespace Turrets
 
       private void RotateBarrels()
       {
+         // TODO: A target position directly to the turret's right will cause the turret
+         // to attempt to aim straight up. This looks silly and on slow moving turrets can
+         // cause delays on targeting. This is why barrels have a boosted rotation speed.
          if (turretBase != null && turretBarrels != null)
          {
             // Note, the local conversion has to come from the parent.

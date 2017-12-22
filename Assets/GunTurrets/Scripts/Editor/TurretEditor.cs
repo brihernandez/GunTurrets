@@ -9,30 +9,11 @@ namespace Turrets
    {
       private const float ArcSize = 10.0f;
 
-      private bool showArcs = false;
-      private bool drawRay = false;
-
       public override void OnInspectorGUI()
       {
          TurretRotation turret = (TurretRotation)target;
 
          DrawDefaultInspector();
-
-         EditorGUILayout.Space();
-         GUILayout.Label("Utilities", EditorStyles.boldLabel);
-
-         EditorGUILayout.BeginHorizontal();
-
-         // TODO: Fix drawRay not saving correctly when you Play
-         showArcs = GUILayout.Toggle(showArcs, new GUIContent("Show Arcs", "Show the arcs that the turret can aim at.\n\nRed: Left/Right Traverse\nGreen: Elevation\nBlue: Depression"));
-         drawRay = GUILayout.Toggle(turret.drawDebugRay, new GUIContent("Show Rays", "When game is running in editor, draws a debug ray to show where the turret is aiming."));
-
-         foreach (Object obj in targets)
-         {
-            ((TurretRotation)obj).drawDebugRay = drawRay;
-         }
-
-         EditorGUILayout.EndHorizontal();
 
          EditorGUILayout.BeginHorizontal();
 
@@ -54,7 +35,8 @@ namespace Turrets
          TurretRotation turret = (TurretRotation)target;
          Transform transform = turret.transform;
 
-         if (showArcs)
+         // Don't show turret arcs when playing, because they won't be correct.
+         if (turret.showArcs && !Application.isPlaying)
          {
             if (turret.turretBarrels != null)
             {
