@@ -65,6 +65,11 @@ Simply sets the turret base and barrels to None.
 
 # Changelog
 
+### 1.1 (Dec 22 2017)
+
+- Debug ray setting now persists correctly from Edit to Play.
+- Arcs no longer show when in Play.
+
 ### 1.0 (Dec 22 2017)
 
 - Released
