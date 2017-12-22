@@ -3,7 +3,7 @@ Starting point for turrets that can be mounted on objects that move and can be a
 
 Built in **Unity 5.6.4**.
 
-![screenshot](Screenshots/arcs.png)
+![screenshot](Screenshots/turrets.png)
 
 ## Download
 
@@ -15,13 +15,15 @@ To aim the turret, call the function **SetAimpoint**. This function takes a Vect
 
 At any time, the turret can be put into (or out of) Idle mode using the **SetIdle** function. When the turret is idle, it will return to its resting position. Note that the aimpoint remains, and if the turret is brought out of idle, it will continue to aim at whatever the last aimpoint was set to.
 
+Limitations can be placed on the turret rotations for left/right traverse and barrel elevation/depression.
+
 ## Turret Rotation
 
 The core script of this project. This assumes a turret with a base gameobject/transform for horizontal rotation, and a barrel gameobject/transform for the vertical rotation. This covers the majority of cases for how turrets operate.
 
 Included in the project is an archetype prefab that can be used as a basis for any turrets you might need to create. It's already configured, and only requires you to customize it to your needs and swap out the models.
 
-## Turret Hierarchy
+### Turret Hierarchy
 
 Turrets must follow a specific hierarchy. The image below shows an example.
 
@@ -38,6 +40,8 @@ The rest of the objects in the hierarchy screenshot above are for visuals.
 If an elevating barrel isn't required for a turret design, the component will still function fine without it. The turret continues to rotate horizontally to face whatever aim point it's given.
 
 ## Helper tools
+
+![screenshot](Screenshots/arcs.png)
 
 ### Show Arcs
 
