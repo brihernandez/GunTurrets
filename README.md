@@ -5,7 +5,7 @@ ______________________
 
 **This project is outdated! An updated version of the turret aiming code can be found here: https://github.com/brihernandez/GunTurrets2**
 
-The new version specifically fixes the following two known issues that these turrets have with a slightly different approach.
+The new version specifically fixes the following two known issues that these turrets have with a slightly different approach and a couple new features such as a properties for checking if the turret is aimed.
 
 * When a target passes behind the turret, and it's using a limited traverse where the limits are >90 degrees, the turret would ignore the traverse limits and go the wrong way around.
 
