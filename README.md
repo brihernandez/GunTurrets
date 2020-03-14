@@ -1,6 +1,17 @@
 # Gun Turrets
 Starting point for turrets that can be mounted on objects that move and can be at any arbitrary rotation. This only project specifically works out the rotation of turrets. You're meant to provide your own weapon systems and to pass aim points to the turret on your own.
 
+______________________
+
+**This project is outdated! An updated version of the turret aiming code can be found here: https://github.com/brihernandez/GunTurrets2**
+
+The new version specifically fixes the following two known issues that these turrets have with a slightly different approach.
+
+* When a target passes behind the turret, and it's using a limited traverse where the limits are >90 degrees, the turret would ignore the traverse limits and go the wrong way around.
+
+* When a target is perpendicular to the turret, the barrels would try to elevate to 90 degrees straight up.
+______________________
+
 Built in **Unity 5.6.4**.
 
 ![screenshot](Screenshots/arcs.png)
