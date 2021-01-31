@@ -3,7 +3,7 @@ Starting point for turrets that can be mounted on objects that move and can be a
 
 ______________________
 
-**This project is outdated! An updated version of the turret aiming code can be found here: https://github.com/brihernandez/GunTurrets2**
+### **This project is outdated! [An updated version of the turret aiming code can be found here](https://github.com/brihernandez/GunTurrets2)**
 
 The new version specifically fixes the following two known issues that these turrets have with a slightly different approach and a couple new features such as a properties for checking if the turret is aimed.
 
